@@ -9,7 +9,11 @@ import org.nigel.screens.Ledger;
 
 public class App {
     public static ArrayList<transaction> TransactionsArray = new ArrayList<>();
-    private static Scanner scan = new Scanner(System.in);
+    private static final Scanner scan = new Scanner(System.in);
+
+    private final String App_Version = "1.0";
+    private final String App_Name = "The Ledger";
+    private final String App_URL = "https://github.com/0x2x/AccountingLedgerApp";
 
     static void main() {
         boolean NotReadyToExit = true;

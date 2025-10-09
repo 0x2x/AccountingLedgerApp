@@ -1,5 +1,12 @@
 package org.nigel.services;
 
+import org.nigel.App;
+import org.nigel.models.transaction;
+
+import java.util.ArrayList;
+
+import static org.nigel.services.PrinterService.printRow;
+
 public class LedgerService {
     // All entries should show the newest service first
 
@@ -21,7 +28,15 @@ public class LedgerService {
         }
     }
 
-    public static void All() {
+    public static ArrayList<String> All() {
         // display all entries
+        ArrayList<String> Transactions = new ArrayList<>();
+        printRow("Date", "Time", "Description", "Vendor", "Amount");
+        System.out.println("-----------------------------------------------------------------------");
+        for (int i = 0; i < App.TransactionsArray.size(); i++) {
+            printRow(App.TransactionsArray.get(i).getDate(), App.TransactionsArray.get(i).getTime(), App.TransactionsArray.get(i).getDescription(), App.TransactionsArray.get(i).getVendor(), String.valueOf(App.TransactionsArray.get(i).getAmount()));
+            Transactions.add("aw");
+        }
+        return  Transactions;
     }
 }

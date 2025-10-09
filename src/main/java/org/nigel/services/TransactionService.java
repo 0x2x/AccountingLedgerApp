@@ -8,6 +8,7 @@ public class TransactionService {
     static void main() {
         LoadTransactions();
         System.out.println(App.TransactionsArray.size());
+        LedgerService.All();
     }
     public static void LoadTransactions() {
         StringBuilder ReadFileService = FileService.ReadFile("files/transactions.csv");
