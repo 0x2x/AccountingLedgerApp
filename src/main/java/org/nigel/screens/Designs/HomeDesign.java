@@ -1,4 +1,5 @@
 package org.nigel.screens.Designs;
+import org.nigel.services.cli.console;
 
 public class HomeDesign {
     private static String DollarDesign = """
@@ -15,7 +16,7 @@ public class HomeDesign {
         System.out.println(DollarDesign);
         System.out.println("\t ==   CITY BANK   == ");
         System.out.println("\t § D) Add Deposit - Add new deposit information");
-        System.out.println("\t § P) Make Deposit (DEBIT) - Pay ...");
+        System.out.println("\t § P) Make Payment (DEBIT) - Pay ...");
         System.out.println("\t § L) Ledger - Display the Ledger screen");
         System.out.println("\t § I) Program Information");
         System.out.println("\t § H) Display this menu");

@@ -9,14 +9,19 @@ import org.nigel.models.transaction;
 import org.nigel.screens.Designs.HomeDesign;
 import org.nigel.screens.Home;
 import org.nigel.screens.Ledger;
+import org.nigel.models.debit;
 
 import static org.nigel.services.DepositsService.LoadDeposits;
 import static org.nigel.services.TransactionService.LoadTransactions;
+import static org.nigel.services.DebitService.LoadDebitCards;
+
 
 public class App {
     public static HashMap<String, ArrayList<transaction>> TransactionsDB = new HashMap<>();
     public static ArrayList<transaction> TransactionsArray = new ArrayList<>();
     public static ArrayList<transaction> DepositsArray = new ArrayList<>();
+    public static ArrayList<debit> DebitCardArrays = new ArrayList<>();
+
 
     private static final Scanner scan = new Scanner(System.in);
 
@@ -25,11 +30,12 @@ public class App {
     private static final String App_URL = "https://github.com/0x2x/AccountingLedgerApp";
     private static final String App_Creator = "Nigel";
 
-
     private static void Init() {
         LoadTransactions(); // Load Transactions into TransactionsArray
         LoadDeposits(); // Load Deposits into DepositsArray
+        LoadDebitCards();
     }
+
     public static void main() {
         boolean NotReadyToExit = true;
         Init(); // load csv FILE
