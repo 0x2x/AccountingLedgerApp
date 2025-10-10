@@ -1,0 +1,1 @@
+# This folder displays console information, art

@@ -8,7 +8,6 @@ public class TransactionService {
     static void main() {
         LoadTransactions();
         System.out.println(App.TransactionsArray.size());
-        LedgerService.All();
     }
     public static void LoadTransactions() {
         StringBuilder ReadFileService = FileService.ReadFile("files/transactions.csv");
@@ -43,8 +42,5 @@ public class TransactionService {
         // debit
         //prompt user for the debit
         //information and save it to the csv file
-
     }
-
-
 }

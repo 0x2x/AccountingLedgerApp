@@ -28,7 +28,7 @@ public class LedgerService {
         }
     }
 
-    public static ArrayList<String> All() {
+    public static ArrayList<String> AllEntries() {
         // display all entries
         ArrayList<String> Transactions = new ArrayList<>();
         printRow("Date", "Time", "Description", "Vendor", "Amount");

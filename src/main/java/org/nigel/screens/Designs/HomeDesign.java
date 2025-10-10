@@ -1,4 +1,4 @@
-package org.nigel.screens;
+package org.nigel.screens.Designs;
 
 public class HomeDesign {
     private static String DollarDesign = """
@@ -18,6 +18,5 @@ public class HomeDesign {
         System.out.println("\t § P) Make Deposit (DEBIT) - Pay ...");
         System.out.println("\t § L) Ledger - Display the Ledger screen");
         System.out.println("\t § X) Exit - Exit Application");
-
     }
 }

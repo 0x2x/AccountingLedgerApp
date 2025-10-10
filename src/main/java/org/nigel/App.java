@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import org.nigel.models.transaction;
-import org.nigel.screens.HomeDesign;
+import org.nigel.screens.Designs.HomeDesign;
 import org.nigel.screens.Ledger;
 
 public class App {
@@ -28,7 +28,7 @@ public class App {
                     System.out.println("Make Deposit");
                     break;
                 case "L": // Lead to ledger Screen
-                    Ledger.Start();
+                    Ledger.Start(scan);
                     break;
                 case "X":
                     System.out.println("Thank you for using The Ledger.");
