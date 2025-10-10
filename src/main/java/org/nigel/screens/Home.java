@@ -5,7 +5,7 @@ import org.nigel.models.debit;
 import org.nigel.screens.Designs.HomeDesign;
 import org.nigel.services.DebitService;
 import org.nigel.services.cli.console;
-
+import org.nigel.services.cli.utility;
 import java.util.Scanner;
 
 import static org.nigel.services.DepositsService.AddDeposit;
@@ -47,7 +47,9 @@ public class Home {
         }
     }
     public static void MakePaymentDebit(Scanner scan) {
+        boolean firstRun = false;
         if(App.DebitCardArrays.isEmpty()) {
+            firstRun = true;
             System.out.println("What is your name: ");
             String DebitCardHolderName = scan.nextLine();
 
@@ -73,11 +75,14 @@ public class Home {
             System.out.println();
             System.out.println("Is this information correct? ");
             System.out.print("[yes/no]: ");
-            String CorrectInformation  = scan.nextLine();
+            scan.nextLine();
+            String CorrectInformation = scan.nextLine().trim().toLowerCase();
 
             if(CorrectInformation.equalsIgnoreCase("y") || CorrectInformation.equalsIgnoreCase("yes")) {
                 if(DebitService.AddDebitCard(DebitCardNumber, DebitCardCVV, DebitCardExpiration, DebitCardHolderAddress, DebitCardHolderName, DebitCardAmount)) {
                     console.Success("Added new card!");
+                    // make payment
+                    DebitService.MakePayment();
                 } else {
                     console.Deny("This card already exists.");
                 }
@@ -92,8 +97,7 @@ public class Home {
         int cardNumber = 0;
         for (int i = 0; i < App.DebitCardArrays.size(); i++) {
             ++cardNumber;
-            System.out.printf("%s");
+            System.out.printf("%d : %s", cardNumber,  utility.StarNumber(App.DebitCardArrays.get(i).getCardNumber(), 4));
         }
-
     }
 }

@@ -5,7 +5,9 @@ import org.nigel.models.debit;
 import org.nigel.services.cli.console;
 
 public class DebitService {
-
+    public static boolean MakePayment() {
+        return  false;
+    }
     public static boolean AddDebitCard(String CardNumber, int CardCVV, String CardExpiration, String HomeAddress, String CardHolderFullName, float CardAmount) {
         boolean CardExists = false;
         for (int i = 0; i < App.DebitCardArrays.size(); i++) {
