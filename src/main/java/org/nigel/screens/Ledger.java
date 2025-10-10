@@ -7,8 +7,8 @@ import java.util.Scanner;
 public class Ledger {
     public static void Start(Scanner scan) {
         boolean KeepLedgerOpen = true;
-        System.out.println();
-        LedgerDesign.HomeScreen();
+        System.out.println(); // New Line
+        LedgerDesign.HomeScreen(); // Display Home Screen
         while (KeepLedgerOpen) {
             System.out.print("[Ledger] User:");
             String Argument = scan.nextLine();
@@ -17,11 +17,19 @@ public class Ledger {
                     DisplayAllEntries();
                     break;
                 case "D": // Deposits - Display only the entries that are deposits into the account
+                    DisplayAllDeposits();
                     break;
                 case "P": // Display only the negative entries (or payments)
+                    DisplayPayments();
                     break;
-                case "R": //  A new screen that allows the user to run pre-defined reports or to run a custom searc
+                case "R": //  A new screen that allows the user to run pre-defined reports or to run a custom search
+                    Reports.home();
                     break;
+                case "H":
+                    org.nigel.App.main();
+                    break;
+                default:
+                    System.out.println("Invalid command. Try again");
             }
         }
     }
@@ -37,17 +45,5 @@ public class Ledger {
     private static void DisplayPayments() { // Display only the negative entries (or payments)
     }
 
-    private static void DisplayReports() {
-        /*
-        A new screen that allows the user to run pre-defined
-        reports or to run a custom search
-        § 1) Month To Date
-        § 2) Previous Month
-        § 3) Year To Date
-        § 4) Previous Year
-        § 5) Search by Vendor - prompt the user for the vendor name
-        and display all entries for that vendor
-        § 0) Back - go back to the Ledger pag
-         */
-    }
+
 }

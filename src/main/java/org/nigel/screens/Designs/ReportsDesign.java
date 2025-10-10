@@ -8,5 +8,7 @@ public class ReportsDesign {
         System.out.println("\t § 3) Year To Date");
         System.out.println("\t § 4) Previous Year");
         System.out.println("\t § 5) Search by vendor - prompt the user for the vendor name and display all entries for that vendor");
+        System.out.println("\t § 0) Back - Go back to the Ledger Page");
+
     }
 }

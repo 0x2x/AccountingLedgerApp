@@ -1,1 +1,2 @@
-account_name|account_id|amount|currency|source|description|timestamp|created_at|updated_at
+date|time|description|vendor|amount
+2023-04-15|11:15:00|Invoice 1001 paid|Joe|1500.00
