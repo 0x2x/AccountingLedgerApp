@@ -43,6 +43,7 @@ public class Ledger {
     }
 
     private static void DisplayAllDeposits() { // Display only the entries that are deposits into the account
+        LedgerService.DisplayAllDeposits();
     }
 
     private static void DisplayPayments() { // Display only the negative entries (or payments)
