@@ -7,5 +7,8 @@ public class LedgerDesign {
         System.out.println("\t § D) Deposit - Display only the entries that are deposits into the account");
         System.out.println("\t § P) Payments - Display only the negative entries (or payments)");
         System.out.println("\t § R) Reports - A new screen that allows the user to run pre-defined reports or to run a custom search.");
+        System.out.println("\t § C) Display this Screen");
+        System.out.println("\t § H) Goes back to home page.");
+
     }
 }

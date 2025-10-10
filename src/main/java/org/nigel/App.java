@@ -57,6 +57,9 @@ public class App {
                     System.out.println("Thank you for using The Ledger.");
                     System.out.println("Exiting...");
                     System.exit(0);
+                case "H":
+                    HomeDesign.HomeLoadMenu();
+                    break;
                 default:
                     System.out.println("Invalid Command.");
             }

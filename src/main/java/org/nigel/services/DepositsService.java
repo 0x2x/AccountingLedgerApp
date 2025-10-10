@@ -38,19 +38,25 @@ public class DepositsService {
     }
 
     public static boolean AddDeposit(float Amount, String Vendor, String Description){
-        LocalDate Today = LocalDate.now();
-        LocalTime TodayTime = LocalTime.now();
+        try{
+            LocalDate Today = LocalDate.now();
+            LocalTime TodayTime = LocalTime.now();
 
-        transaction newDeposit = new transaction();
-        newDeposit.setAmount(Amount);
-        newDeposit.setVendor(Vendor);
-        if(Description.isEmpty() || Description.equals(null)) {
-            newDeposit.setDescription("N/A");
+            transaction newDeposit = new transaction();
+            newDeposit.setAmount(Amount);
+            newDeposit.setVendor(Vendor);
+            if(Description.isEmpty() || Description.equals(null)) {
+                newDeposit.setDescription("N/A");
+            } else {
+                newDeposit.setDescription(Description);
+            }
+            newDeposit.setDate(Today.toString());
+            newDeposit.setTime(TodayTime.toString());
+            App.DepositsArray.add(newDeposit);
+            FileService.WriteFile("files/deposit.csv", true, newDeposit.toFormat());
+            return true;
+        }catch (Exception e) {
+            return  false;
         }
-        newDeposit.setDate(Today.toString());
-        newDeposit.setTime(TodayTime.toString());
-        App.DepositsArray.add(newDeposit);
-
-        return  false;
     }
 }

@@ -14,7 +14,6 @@ public class Reports {
         ReportsDesign.HomeScreen();
 
         while (KeepReportsPageActive) {
-
             int ScanReport = scan.nextInt();
             DisplayReports(ScanReport);
             switch (ScanReport) {
@@ -33,8 +32,8 @@ public class Reports {
                     org.nigel.screens.Ledger.Start(scan); // Back to Home
             }
         }
-
     }
+
     public static ArrayList<String> CustomSearch(Scanner scan) {
         /*
         6) Custom Search - prompt the user for the following search values.

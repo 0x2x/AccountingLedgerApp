@@ -25,6 +25,9 @@ public class Ledger {
                 case "R": //  A new screen that allows the user to run pre-defined reports or to run a custom search
                     Reports.home();
                     break;
+                case "C":
+                    LedgerDesign.HomeScreen();
+                    break;
                 case "H":
                     org.nigel.App.main();
                     break;

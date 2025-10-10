@@ -1,5 +1,6 @@
 package org.nigel.screens;
 
+import org.nigel.App;
 import org.nigel.screens.Designs.HomeDesign;
 import org.nigel.services.cli.console;
 
@@ -39,6 +40,7 @@ public class Home {
             } else {
                 console.Deny("Something went wrong when depositing $%.2f%n from %s. Please try again", DepositAmount, DepositVendor);
             }
+            App.main();
         } catch (java.util.InputMismatchException e) {
             System.out.println("Input not accepted. Please enter a float number.");
         }
