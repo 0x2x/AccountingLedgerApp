@@ -4,6 +4,9 @@ import org.nigel.App;
 import org.nigel.models.debit;
 import org.nigel.services.cli.console;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class DebitService {
     public static boolean MakePayment() {
         return  false;
@@ -53,5 +56,45 @@ public class DebitService {
                 CardNumber, Integer.parseInt(cardCVV), CardExpiration, HomeAddress, Name, Float.parseFloat(cardAmount)
         );
         return parsedTransaction;
+    }
+
+    public static HashMap<String, String> MakePayment(debit Card, String Vendor) {
+        double TotalAmount = 0;
+        // {"Total": 242242, "Companies": [{"vendor": "amazon", "amount": 4200}, ]
+        HashMap<String, String> VendorsData = new HashMap<>();
+        ArrayList<HashMap<String, String>> DataArray = new ArrayList<>();
+
+        // seralize array to string
+        if(Vendor == null) {
+            // pay all in transactions
+            for (int i = 0; i < App.TransactionsArray.size(); i++) {
+                HashMap<String, String> KeyAndValue = new HashMap<>();
+
+                TotalAmount += App.TransactionsArray.get(i).getAmount();
+                // first serialize
+                KeyAndValue.put("Amount", Double.toString(App.TransactionsArray.get(i).getAmount()));
+                KeyAndValue.put("Vendor", App.TransactionsArray.get(i).getVendor());
+
+                DataArray.add(KeyAndValue);
+            }
+        } else {
+            for (int i = 0; i < App.TransactionsArray.size(); i++) {
+                if(App.TransactionsArray.get(i).getVendor().equalsIgnoreCase(Vendor) || App.TransactionsArray.get(i).getVendor().contains(Vendor)) {
+                    HashMap<String, String> KeyAndValue = new HashMap<>();
+
+                    TotalAmount += App.TransactionsArray.get(i).getAmount();
+                    KeyAndValue.put("Amount", Double.toString(App.TransactionsArray.get(i).getAmount()));
+                    KeyAndValue.put("Vendor", App.TransactionsArray.get(i).getVendor());
+
+                    DataArray.add(KeyAndValue);
+
+                }
+            }
+        }
+
+        VendorsData.put("Vendors", DataArray.toString());
+        VendorsData.put("Amount", Double.toString(TotalAmount));
+
+        return VendorsData;
     }
 }

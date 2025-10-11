@@ -42,7 +42,8 @@ public class App {
         HomeDesign.HomeLoadMenu();
         while (NotReadyToExit) {
             System.out.print("User: ");
-            switch (scan.nextLine().split(" ")[0].toUpperCase()) {
+            String CommandLine = scan.nextLine().split(" ")[0].toUpperCase();
+            switch (CommandLine) {
                 case "D":
                     Home.screen(scan, 'D'); // make deposit
                     break;
