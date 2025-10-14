@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Scanner;
 
+import static org.nigel.services.ReportsService.*;
+
 public class Reports {
 
     public static  void home() {
@@ -42,6 +44,7 @@ public class Reports {
                     break;
                 case 6:
                     ReportsDesign.ReportsCustomSearchMenu();
+                    CustomSearch(scan);
                     break;
                 case 0:
                     org.nigel.screens.Ledger.Start(scan); // Back to Home
@@ -63,19 +66,40 @@ public class Reports {
             o If the user does not enter a value, you should not filter on that field
          */
         ArrayList<String> SearchResult = new ArrayList<>();
+        System.out.print("Option: ");
         String CustomSearch = scan.nextLine();
         switch (CustomSearch) {
-            case "Start date":
+            case "1":
+                System.out.println("Example: 2025-10");
+                System.out.println("Format: Year-Month");
+                System.out.print("Date: ");
+                String StartDateArg = scan.nextLine();
+                StartDate(StartDateArg);
                 break;
-            case "End date":
+            case "2":
+                System.out.println("Example: 2025-10");
+                System.out.println("Format: Year-Month");
+                System.out.print("Date: ");
+                String EndDateArg = scan.nextLine();
+                EndDate(EndDateArg);
                 break;
-            case "Description":
+            case "3":
+                System.out.print("What description are you trying to find: ");
+                String SearchDescription = scan.nextLine();
+                CustomSearchDescription(SearchDescription);
                 break;
-            case "Vendor":
-//                ReportsService.CustomSearchVendor();
+            case "4":
+                System.out.print("Which vendor are you trying to search for: ");
+                String SearchVendor = scan.nextLine();
+                CustomSearchVendor(SearchVendor);
                 break;
-            case "Amount":
+            case "5":
+                System.out.print("How much are you trying to search for: ");
+                String SearchAmount = scan.nextLine();
+                AmountSearch(SearchAmount);
                 break;
+            default:
+                System.out.println("Not valid argument.");
         }
         return SearchResult;
     }

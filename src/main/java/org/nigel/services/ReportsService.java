@@ -170,4 +170,119 @@ public class ReportsService {
             console.Information("There is no current transactions.");
         }
     }
+
+    public static void CustomSearchDescription(String Argument) {
+        boolean foundVendor = false;
+        if(!App.TransactionsArray.isEmpty()) {
+            for (int i = 0; i < App.TransactionsArray.size(); i++) {
+                if(App.TransactionsArray.get(i).getDescription().equalsIgnoreCase(Argument) || App.TransactionsArray.get(i).getDescription().contains(Argument) || TransactionsArray.get(i).getDescription().startsWith(Argument)) {
+                    foundVendor = true;
+                }
+            }
+            if(foundVendor) {
+                printRow("Date", "Time", "Description", "Vendor", "Amount");
+                System.out.println("-----------------------------------------------------------------------");
+//            App.TransactionsArray.sort(Comparator.comparing(deposit -> LocalDate.parse(deposit.getDate())));
+//            Collections.reverse(App.TransactionsArray);
+
+                for (int i = 0; i < App.TransactionsArray.size(); i++) {
+                    if(App.TransactionsArray.get(i).getDescription().equalsIgnoreCase(Argument) || App.TransactionsArray.get(i).getDescription().contains(Argument) || TransactionsArray.get(i).getDescription().startsWith(Argument)) {
+                        printRow(App.TransactionsArray.get(i).getDate(), App.TransactionsArray.get(i).getTime(), App.TransactionsArray.get(i).getDescription(), App.TransactionsArray.get(i).getVendor(), String.valueOf(App.TransactionsArray.get(i).getAmount()));
+                    }
+                }
+            } else {
+                console.Deny("There is no description with text: %s", Argument);
+            }
+        } else {
+            console.Information("There is no current transactions.");
+        }
+    }
+
+    public static void StartDate(String Date) {
+        boolean FoundItem = false;
+        if(!TransactionsArray.isEmpty()) {
+            String[] DateSplit = Date.split("-");
+            String Year = DateSplit[0];
+            String Month = DateSplit[1];
+
+            String CurrentFormat = String.format("%s-%s", Year, Month);
+
+            for (int i = 0; i < TransactionsArray.size(); i++) {
+                if (TransactionsArray.get(i).getDate().startsWith(CurrentFormat)) {
+                    FoundItem = true;
+                }
+            }
+            if(FoundItem) {
+                printRow("Date", "Time", "Description", "Vendor", "Amount");
+                System.out.println("-----------------------------------------------------------------------");
+                for (transaction transaction : TransactionsArray) {
+                    if (transaction.getDate().startsWith(CurrentFormat)) {
+                        printRow(transaction.getDate(), transaction.getTime(), transaction.getDescription(), transaction.getVendor(), String.valueOf(transaction.getAmount()));
+                    }
+                }
+            }else {
+                console.Deny("There is no transaction with the date: %s", CurrentFormat);
+            }
+        } else {
+            console.Information("There is no current transactions.");
+
+        }
+    }
+    public static void EndDate(String Date) {
+        boolean FoundItem = false;
+        if(!TransactionsArray.isEmpty()) {
+            System.out.println(Date);
+            String[] DateSplit = Date.split("-");
+            String Year = DateSplit[0];
+            String Month = DateSplit[1];
+
+            String CurrentFormat = String.format("%s-%s", Year, Month);
+
+            for (int i = 0; i < TransactionsArray.size(); i++) {
+                if (TransactionsArray.get(i).getDate().startsWith(CurrentFormat)) {
+                    FoundItem = true;
+                }
+            }
+            if(FoundItem) {
+                printRow("Date", "Time", "Description", "Vendor", "Amount");
+                System.out.println("-----------------------------------------------------------------------");
+                for (transaction transaction : TransactionsArray) {
+                    if (transaction.getDate().startsWith(CurrentFormat)) {
+                        printRow(transaction.getDate(), transaction.getTime(), transaction.getDescription(), transaction.getVendor(), String.valueOf(transaction.getAmount()));
+                    }
+                }
+            }else {
+                console.Deny("There is no transaction with the date: %s", CurrentFormat);
+            }
+        } else {
+            console.Information("There is no current transactions.");
+
+        }
+    }
+    public static void AmountSearch(String Amount) {
+        boolean FoundItem = false;
+        if(!TransactionsArray.isEmpty()) {
+
+            for (int i = 0; i < TransactionsArray.size(); i++) {
+                if (TransactionsArray.get(i).getAmount() > Double.parseDouble(Amount)) {
+                    FoundItem = true;
+                }
+            }
+            if(FoundItem) {
+                printRow("Date", "Time", "Description", "Vendor", "Amount");
+                System.out.println("-----------------------------------------------------------------------");
+                for (transaction transaction : TransactionsArray) {
+                    if (transaction.getAmount() > Double.parseDouble(Amount)) {
+                        printRow(transaction.getDate(), transaction.getTime(), transaction.getDescription(), transaction.getVendor(), String.valueOf(transaction.getAmount()));
+                    }
+                }
+            }else {
+                console.Deny("There is no transaction with the amount: %s", Amount);
+            }
+        } else {
+            console.Information("There is no current transactions.");
+
+        }
+    }
+
 }

@@ -50,7 +50,6 @@ public class Home {
             } else {
                 console.Deny("Something went wrong when depositing $%.2f%n from %s. Please try again", DepositAmount, DepositVendor);
             }
-            App.main();
         } catch (java.util.InputMismatchException e) {
             System.out.println("Input not accepted. Please enter a float number.");
         }
@@ -110,16 +109,18 @@ public class Home {
                     ++cardNumber;
                     System.out.printf("%d : %s\n", cardNumber,  utility.StarNumber(App.DebitCardArrays.get(i).getCardNumber(), 4));
                 }
+                System.out.println("Card Option: ");
                 int choice = scan.nextInt();
                 scan.nextLine();
-                System.out.println(choice);
                 System.out.println();
+                // setting up card
                 usingCard.setCardCVV(App.DebitCardArrays.get(choice - 1).getCardCVV());
                 usingCard.setCardExpiration(App.DebitCardArrays.get(choice - 1).getCardExpiration());
                 usingCard.setCardHolderFullName(App.DebitCardArrays.get(choice - 1).getCardHolderFullName());
                 usingCard.setCardAmount(App.DebitCardArrays.get(choice - 1).getCardAmount());
                 usingCard.setCardNumber(App.DebitCardArrays.get(choice - 1).getCardNumber());
                 usingCard.setHomeAddress(App.DebitCardArrays.get(choice - 1).getHomeAddress());
+                // print card information
                 System.out.println("\t== Card Information==");
                 System.out.println("Card Number: " + utility.StarNumber(usingCard.getCardNumber(), 4) + "\t CVV:" + " ***");
                 System.out.println("Card Holder Name: " + usingCard.getCardHolderFullName() + "\t Card Expiration: " + usingCard.getCardExpiration());
@@ -127,11 +128,12 @@ public class Home {
                 System.out.println();
                 System.out.println("Do you want to use this card? ");
                 System.out.print("[Yes/No]: ");
+
                 String Answer = scan.nextLine();
                 if(Answer.isEmpty()) {
                     System.out.println("You can't leave empty...");
                 }
-                if(Answer.equalsIgnoreCase("yes")) {
+                if(Answer.equalsIgnoreCase("yes")) { // lets users pay either for a specific vendor or all vendors
                     System.out.println();
                     System.out.println("Enter vendor name to pay transactions:");
                     System.out.println("(leave empty to pay all)");
@@ -169,11 +171,11 @@ public class Home {
                     } else {
                         System.out.println("Total Payment Owed: - $" + Double.toString(TotalPaymentOwed).replace("-", ""));
                     }
-                } else {
+                } else { // returns back to start to ask which card
                     screen(scan, 'P');
                 }
 
-            } else {
+            } else { // if there is only one card in the array.
                 System.out.println("\t== Only added Card ==");
                 String CardNumber = App.DebitCardArrays.getFirst().getCardNumber();
                 System.out.println("Card Number: " + utility.StarNumber(CardNumber, 4) + "\t CVV:" + " ***");
@@ -188,6 +190,7 @@ public class Home {
                 }
                 if(Answer.equalsIgnoreCase("yes")) {
                     // using first
+                    // set card
                     usingCard.setCardCVV(App.DebitCardArrays.getFirst().getCardCVV());
                     usingCard.setCardExpiration(App.DebitCardArrays.getFirst().getCardExpiration());
                     usingCard.setCardHolderFullName(App.DebitCardArrays.getFirst().getCardHolderFullName());
@@ -196,7 +199,7 @@ public class Home {
                     usingCard.setHomeAddress(App.DebitCardArrays.getFirst().getHomeAddress());
 
                     System.out.println();
-                    System.out.println("Enter vendor name to pay transactions:");
+                    System.out.println("Enter vendor name to pay transactions:"); // give option to pay either all from transactions or one
                     System.out.println("(leave empty to pay all)");
                     System.out.print("Vendor Name: ");
                     String EnterVendorName = scan.nextLine();
@@ -211,23 +214,23 @@ public class Home {
                     int indexCount = 0;
                     for (Map.Entry<String, String> vendor : DebitService.MakePayment(usingCard, EnterVendorName).entrySet()) {
                         if(vendor.getKey().strip().equalsIgnoreCase("vendors")) {
-                            String jsonReady = vendor.getValue()
+                            String jsonReady = vendor.getValue() // As when parsing a List to a Str, It gets quite difficult. But using Googles GSON makes it lot easier.
                                     .replace("=", ":")
-                                    .replaceAll("([a-zA-Z]+)", "\"$1\"")   // wrap keys and string values
-                                    .replaceAll(":(-?\\d+(\\.\\d+)?)", ":$1"); // don't quote numbers
+                                    .replaceAll("([a-zA-Z]+)", "\"$1\"")
+                                    .replaceAll(":(-?\\d+(\\.\\d+)?)", ":$1");
                             Gson gson = new Gson();
                             Type listType = new TypeToken<List<Map<String, Object>>>() {}.getType();
                             List<Map<String, Object>> dataList = gson.fromJson(jsonReady, listType);
-                            for (Map<String, Object> entry : dataList) {
+                            for (Map<String, Object> entry : dataList) { // provide list of count
                                 ++indexCount;
                                 System.out.printf("%d - %-6s %-4s \n", indexCount, entry.get("Vendor"), entry.get("Amount"));
                             }
                         }
-                        if(vendor.getKey().strip().equalsIgnoreCase("amount")){
+                        if(vendor.getKey().strip().equalsIgnoreCase("amount")){  // add total owed
                             TotalPaymentOwed = Double.parseDouble(vendor.getValue());
                         }
                     }
-                    if(TotalPaymentOwed > 0 ) {
+                    if(TotalPaymentOwed > 0 ) { // determine if I'm owed money or if I owe money.
                         System.out.println("Total Payment Owed: + $" + TotalPaymentOwed);
                     } else {
                         System.out.println("Total Payment Owed: - $" + Double.toString(TotalPaymentOwed).replace("-", ""));

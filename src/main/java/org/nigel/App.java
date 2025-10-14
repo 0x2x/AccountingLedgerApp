@@ -24,16 +24,19 @@ public class App {
 
 
     private static final Scanner scan = new Scanner(System.in);
-
+    private static boolean AlreadyInit = false;
     private static final String App_Version = "1.0";
     private static final String App_Name = "The Ledger";
     private static final String App_URL = "https://github.com/0x2x/AccountingLedgerApp";
     private static final String App_Creator = "Nigel";
 
     private static void Init() {
-        LoadTransactions(); // Load Transactions into TransactionsArray
-        LoadDeposits(); // Load Deposits into DepositsArray
-        LoadDebitCards();
+        if (AlreadyInit == false) {
+            LoadTransactions(); // Load Transactions into TransactionsArray
+            LoadDeposits(); // Load Deposits into DepositsArray
+            LoadDebitCards();
+        }
+        AlreadyInit = true;
     }
 
     public static void main() {
