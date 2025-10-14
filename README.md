@@ -3,13 +3,40 @@ Welcome to the **Ledger Application**, a specialized tool designed to help you m
 
 ## How the Application works
 ```mermaid
-  graph TD;
-      Main.Java-->App.Java;
-      App.Java-->Load_CSV-->Load_Cache-->App.Java_menu;
-      App.Java_menu-->User_Input;
-      User_Input-->Specific_Screens;
-      Specific_Screens-->Specific_Services-->if_need_to_update_array_and_Write_to_CSV-->App.Java;
+ graph TD
+    subgraph 1. Application Startup and Data Initialization
+        A[Main.Java: Entry Point] --> B(App.Java: Primary Logic);
+        B --> C[Load_CSV: Data Access Layer];
+        C --> D[Load_Cache: In-Memory Array];
+    end
 
+    subgraph 2. User Interaction Loop
+        D --> E(App.Java Menu: Display Options);
+        E --> F[User_Input: Command Acquisition];
+    end
+
+    subgraph 3. Execution of Business Logic and Persistence
+        F --> G[Specific Screens: UI/View Layer];
+        G --> H[Specific Services: Execute Business Logic];
+        H --> I{Persistence Check: Update Array & Write to CSV?};
+        I --> B;
+    end
+
+    %% Catppuccin Mocha Palette adapted for a light background for high readability
+    %% Main Control Center (B: App.Java) - Blue
+    style B fill:#89b4fa, stroke:#444, color:#1e1e2e, stroke-width:2px;
+    
+    %% Critical Persistence Step (I: Check & Write to CSV) - Yellow/Gold
+    style I fill:#f9e2af, stroke:#444, color:#1e1e2e, stroke-width:2px;
+
+    %% General/Standard Nodes - Mauve/Pink
+    style A fill:#cba6f7, stroke:#444, color:#1e1e2e;
+    style C fill:#cba6f7, stroke:#444, color:#1e1e2e;
+    style D fill:#cba6f7, stroke:#444, color:#1e1e2e;
+    style E fill:#cba6f7, stroke:#444, color:#1e1e2e;
+    style F fill:#cba6f7, stroke:#444, color:#1e1e2e;
+    style G fill:#cba6f7, stroke:#444, color:#1e1e2e;
+    style H fill:#cba6f7, stroke:#444, color:#1e1e2e;
 ```
 
 ## Cool Functions
