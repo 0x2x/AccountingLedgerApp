@@ -21,24 +21,7 @@ public class Home {
         //HomeDesign.HomeLoadMenu(); // Display Home Screen
             switch (EVENT) {
                 case 'D': // Add Deposit - Prompt user for the deposit information
-                    System.out.print("Which vendor would you like to deposit from: " );
-                    String DepositVendor = scan.nextLine();
-//                    date|time|description|vendor|amount
-                    System.out.print("Description for deposit: ");
-                    String DepositDescription = scan.nextLine();
-                    System.out.print("How much would you like to deposit: " );
-                    try{
-                        float DepositAmount = scan.nextFloat();
-                        boolean AddedDeposit = AddDeposit(DepositAmount, DepositVendor, DepositDescription);
-                        if(AddedDeposit) {
-                            console.Success("Deposited the $%.2f from %s", DepositAmount, DepositVendor);
-                        } else {
-                            console.Deny("Something went wrong when depositing $%.2f%n from %s. Please try again", DepositAmount, DepositVendor);
-                        }
-                        App.main();
-                    } catch (java.util.InputMismatchException e) {
-                        System.out.println("Input not accepted. Please enter a float number.");
-                    }
+                    AddDepositDisplay(scan);
                     break;
                 case 'P': // prompt user for the debit information and save it to the csv file
                     MakePaymentDebit(scan);

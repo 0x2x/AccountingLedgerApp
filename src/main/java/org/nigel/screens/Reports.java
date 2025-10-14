@@ -2,6 +2,7 @@ package org.nigel.screens;
 import org.nigel.App;
 import org.nigel.screens.Designs.ReportsDesign;
 import org.nigel.services.LedgerService;
+import org.nigel.services.ReportsService;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -14,6 +15,7 @@ public class Reports {
         ReportsDesign.HomeScreen();
 
         while (KeepReportsPageActive) {
+            System.out.print("[Ledger/Reports] User:");
             int ScanReport = scan.nextInt();
             DisplayReports(ScanReport);
             switch (ScanReport) {
@@ -26,13 +28,18 @@ public class Reports {
                 case 4: // Previous Year
                     break;
                 case 5: // Search by vendor
-                    CustomSearch(scan);
+                    System.out.print("Enter vendors name: ");
+                    String SearchVendorName = scan.nextLine();
+                    ReportsService.CustomSearchVendor(SearchVendorName);
                     break;
+                case 6:
+                    ReportsDesign.ReportsCustomSearchMenu();
                 case 0:
                     org.nigel.screens.Ledger.Start(scan); // Back to Home
             }
         }
     }
+
 
     public static ArrayList<String> CustomSearch(Scanner scan) {
         /*
@@ -46,7 +53,8 @@ public class Reports {
             o If the user does not enter a value, you should not filter on that field
          */
         ArrayList<String> SearchResult = new ArrayList<>();
-        switch (scan.nextLine()) {
+        String CustomSearch = scan.nextLine();
+        switch (CustomSearch) {
             case "Start date":
                 break;
             case "End date":
@@ -54,11 +62,11 @@ public class Reports {
             case "Description":
                 break;
             case "Vendor":
+//                ReportsService.CustomSearchVendor();
                 break;
-            case "Amount":break;
-
+            case "Amount":
+                break;
         }
-        String CustomSearch = scan.nextLine();
         return SearchResult;
     }
 

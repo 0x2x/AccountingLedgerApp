@@ -28,6 +28,21 @@ public class LedgerService {
         }
         return SortedTransactions;
     }
+
+    public static ArrayList<String> DisplayPayments() {
+        ArrayList<String> SortedTransactions = new ArrayList<>();
+        printRow("Date", "Time", "Description", "Vendor", "Amount");
+        System.out.println("-----------------------------------------------------------------------");
+        TransactionsArray.sort(Comparator.comparing(deposit -> LocalDate.parse(deposit.getDate())));
+        Collections.reverse(TransactionsArray);
+        for (int i = 0; i < TransactionsArray.size(); i++) {
+            if(TransactionsArray.get(i).getAmount() < 0 ) { // negative number
+                printRow(TransactionsArray.get(i).getDate(), TransactionsArray.get(i).getTime(), TransactionsArray.get(i).getDescription(), TransactionsArray.get(i).getVendor(), String.valueOf(TransactionsArray.get(i).getAmount()));
+            }
+//            Transactions.add(DepositsArray.get(i).getDate(), DepositsArray.get(i).getTime(), DepositsArray.get(i).getDescription(), DepositsArray.get(i).getVendor(), String.valueOf(DepositsArray.get(i).getAmount());
+        }
+        return SortedTransactions;
+    }
     public static void Reports(int EVENT) {
         //A new screen that allows the user to run pre-defined
         //reports or to run a custom search

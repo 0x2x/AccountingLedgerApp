@@ -32,7 +32,10 @@ public class Ledger {
                     org.nigel.App.main();
                     break;
                 default:
-                    System.out.println("Invalid command. Try again");
+                    System.out.println(Argument);
+                    if(!Argument.isBlank()) {
+                        System.out.println("Invalid command. Try again");
+                    }
             }
         }
     }
@@ -47,6 +50,7 @@ public class Ledger {
     }
 
     private static void DisplayPayments() { // Display only the negative entries (or payments)
+        LedgerService.DisplayPayments();
     }
 
 
