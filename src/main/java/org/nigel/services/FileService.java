@@ -1,9 +1,11 @@
 package org.nigel.services;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
 
 public class FileService {
     public static void WriteFile(String FilePath, boolean append, String Content) {
@@ -32,6 +34,20 @@ public class FileService {
             System.out.println("An error has occured.");
         }
         return null;
+    }
+
+    public static void replaceLineByIndex(String filePath, int lineNumber, String newLineText) {
+        Path path = Paths.get(filePath);
+        try {
+            List<String> lines = Files.readAllLines(path, StandardCharsets.UTF_8);
+            if(lineNumber >= 0 && lineNumber < lines.size()) {
+                lines.set(lineNumber, newLineText);
+                Files.write(path, lines, StandardCharsets.UTF_8);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
 }

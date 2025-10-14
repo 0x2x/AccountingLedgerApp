@@ -40,7 +40,7 @@ public class ReportsService {
                     }
                 }
             }else {
-                console.Deny("There is no vendor with the date: %d", CurrentFormat);
+                console.Deny("There is no vendor with the date: %s", CurrentFormat);
             }
         } else {
             console.Information("There is no current transactions.");
@@ -77,7 +77,7 @@ public class ReportsService {
                     }
                 }
             }else {
-                console.Deny("There is no vendor with the date: %d", LastMonth);
+                console.Deny("There is no vendor with the date: %s", LastMonth);
             }
         } else {
             console.Information("There is no current transactions.");

@@ -37,7 +37,9 @@ public class LedgerService {
         Collections.reverse(TransactionsArray);
         for (int i = 0; i < TransactionsArray.size(); i++) {
             if(TransactionsArray.get(i).getAmount() < 0 ) { // negative number
-                printRow(TransactionsArray.get(i).getDate(), TransactionsArray.get(i).getTime(), TransactionsArray.get(i).getDescription(), TransactionsArray.get(i).getVendor(), String.valueOf(TransactionsArray.get(i).getAmount()));
+                if(!TransactionsArray.get(i).getDescription().endsWith("Paid")) {
+                    printRow(TransactionsArray.get(i).getDate(), TransactionsArray.get(i).getTime(), TransactionsArray.get(i).getDescription(), TransactionsArray.get(i).getVendor(), String.valueOf(TransactionsArray.get(i).getAmount()));
+                }
             }
 //            Transactions.add(DepositsArray.get(i).getDate(), DepositsArray.get(i).getTime(), DepositsArray.get(i).getDescription(), DepositsArray.get(i).getVendor(), String.valueOf(DepositsArray.get(i).getAmount());
         }

@@ -41,11 +41,11 @@ public class debit {
         CardHolderFullName = cardHolderFullName;
     }
 
-    public float getCardAmount() {
+    public double getCardAmount() {
         return CardAmount;
     }
 
-    public void setCardAmount(float cardAmount) {
+    public void setCardAmount(double cardAmount) {
         CardAmount = cardAmount;
     }
 
@@ -54,7 +54,7 @@ public class debit {
     private String CardExpiration;
     private String HomeAddress;
     private String CardHolderFullName;
-    private float CardAmount;
+    private double CardAmount;
 
     //
     public debit() {}
