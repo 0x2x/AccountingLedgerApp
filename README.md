@@ -1,6 +1,17 @@
 # Ledger Application
 Welcome to the **Ledger Application**, a specialized tool designed to help you manage and display your financial data simply and effectively.
 
+## How the Application works
+```mermaid
+  graph TD;
+      Main.Java-->App.Java;
+      App.Java-->Load_CSV-->Load_Cache-->App.Java_menu;
+      App.Java_menu-->User_Input;
+      User_Input-->Specific_Screens;
+      Specific_Screens-->Specific_Services-->if_need_to_update_array_and_Write_to_CSV-->App.Java;
+
+```
+
 ## Cool Functions
 
 ### Write to line number
