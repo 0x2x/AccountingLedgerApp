@@ -3,6 +3,12 @@ import org.nigel.App;
 import org.nigel.models.debit;
 import org.nigel.models.transaction;
 import org.nigel.utils.files;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.Collections;
+import java.util.Comparator;
+
 public class Initalizing {
     // Load all Variables located inside App.java
     public static void LoadTransactions() {
@@ -26,12 +32,12 @@ public class Initalizing {
                         amount
                 );
                 App.TransactionsArray.add(parsedTransaction); // Add to collection
+
             }
         }
-    }
-
-    public static void LoadDeposits() {
-
+        App.TransactionsArray.sort(Comparator.comparing(deposit -> LocalDate.parse(deposit.getDate())));
+        App.TransactionsArray.sort(Comparator.comparing(deposit -> LocalTime.parse(deposit.getTime())));
+        Collections.reverse(App.TransactionsArray);
     }
 
     public static void LoadDebitCards() {
@@ -55,4 +61,5 @@ public class Initalizing {
             }
         }
     }
+
 }

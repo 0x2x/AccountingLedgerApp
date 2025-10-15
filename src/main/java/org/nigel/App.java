@@ -3,7 +3,10 @@ package org.nigel;
 import org.nigel.models.debit;
 import org.nigel.models.transaction;
 import org.nigel.screens.Home;
+import org.nigel.screens.Ledger;
 import org.nigel.screens.designs.HomeDesign;
+import org.nigel.screens.designs.LedgerDesign;
+import org.nigel.utils.cli;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -13,7 +16,6 @@ import static org.nigel.Services.Initalizing.LoadTransactions;
 
 public class App {
     public static ArrayList<transaction> TransactionsArray = new ArrayList<>();
-    public static ArrayList<transaction> DepositsArray = new ArrayList<>();
     public static ArrayList<debit> DebitCardArrays = new ArrayList<>();
 
     private static final Scanner scan = new Scanner(System.in);
@@ -48,6 +50,7 @@ public class App {
                     Home.MakePaymentCommand(scan);
                     break;
                 case "l":
+                    LedgerMenu();
                     break;
                 case "h":
                     HomeDesign.HomeLoadMenu();
@@ -55,6 +58,41 @@ public class App {
                 case "x":
                     KeepProgramOpen = false;
                     break;
+                default:
+                    cli.LabelInformation("Invalid command.");
+            }
+        }
+    }
+
+    public static void LedgerMenu() {
+        LedgerDesign.HomeScreen();
+        boolean KeepScreenOpen = true;
+        while (KeepScreenOpen) {
+            System.out.print("[Ledger] User: ");
+            String Argument = scan.nextLine();
+            String ArgumentCorrection = Argument.split(" ")[0].toLowerCase();// Split the text in to a array, Grab first element and change to lowercase
+            switch (ArgumentCorrection) { // Switch though each option till find a valid one.
+                case "a":
+                    Ledger.DisplayAll();
+                    break;
+                case "d":
+                    Ledger.DisplayDeposits();
+                    break;
+                case "p":
+                    Ledger.DisplayPayments();
+                    break;
+                case "r":
+                    Ledger.DisplayReports(scan);
+                    break;
+                case "c":
+                    LedgerDesign.HomeScreen();
+                    break;
+                case "h":
+                    KeepScreenOpen = false;
+                    Menu();
+                    break;
+                default:
+                    cli.LabelInformation("Invalid command.");
             }
         }
     }

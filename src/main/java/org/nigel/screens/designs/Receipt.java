@@ -3,11 +3,13 @@ package org.nigel.screens.designs;
 import org.nigel.models.debit;
 
 public class Receipt {
-    static void main() {
-
+    public static void generate(double subtotal, double total, double tax, String CompanyName, debit card) {
+        String date = "";
+        String Time = "";
+        printReceipt(date, Time, subtotal, total, tax, CompanyName, card);
     }
 
-    public static void printReceipt(String Date, String Time, double subtotal, double tax, double total, String CompanyName, debit Card) {
+    private static void printReceipt(String Date, String Time, double subtotal, double tax, double total, String CompanyName, debit Card) {
         // You would replace this with dynamic data
         String CompanyWebsite = String.format("%s.com", CompanyName);
         System.out.println("========================================");
@@ -24,9 +26,7 @@ public class Receipt {
         System.out.println("----------------------------------------");
 
         // Example Item lines - alignment is key for CLI!
-        System.out.printf(" %-2d | %-20s | $%-4.2f| $%-4.2f%n", 1, "Coffee Mug", 15.00, 15.00);
-        System.out.printf(" %-2d | %-20s | $%-4.2f| $%-4.2f%n", 2, "Espresso Blend (1lb)", 20.00, 40.00);
-        System.out.printf(" %-2d | %-20s | $%-4.2f| $%-4.2f%n", 1, "Pastry", 4.50, 4.50);
+        System.out.printf(" %-2d | %-20s | $%-4.2f| $%-4.2f%n", 1, CompanyName + " Bill", total, total);
 
         System.out.println("----------------------------------------");
 

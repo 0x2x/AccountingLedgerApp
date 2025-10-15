@@ -4,6 +4,7 @@ import org.nigel.App;
 import org.nigel.Services.Initalizing;
 import org.nigel.models.debit;
 import org.nigel.models.transaction;
+import org.nigel.screens.designs.Receipt;
 import org.nigel.utils.files;
 import org.nigel.utils.cli;
 
@@ -45,12 +46,10 @@ public class Home {
             Transaction.setTime(LocalTime.now().toString());
             files.WriteFile("files/transactions.csv", true, Transaction.toFormat());
             App.TransactionsArray.add(Transaction);
-            cli.LabelSuccess("Deposited %d from %s", UserInputAmount, UserInputVendor);
+            cli.LabelSuccess("Deposited %.2f from %s", UserInputAmount, UserInputVendor);
         }catch (java.util.InputMismatchException e) {
             cli.LabelWarning("Input mismatch. Requires Double not String.");
         }
-
-
     }
 
     public static void MakePaymentCommand(Scanner scan) {
@@ -91,7 +90,20 @@ public class Home {
                         if(UserInputVendor.isEmpty()) {
                             UserInputVendor = null;
                         }
+
+                        double CurrentBalance = CurrentCard.getCardAmount();
                         MakePaymentAction(CurrentCard, UserInputVendor);
+                        double AfterBalance = CurrentCard.getCardAmount();
+                        cli.LabelInformation("You paid %.2f for the transactions.", AfterBalance);
+                        System.out.println("Do you request a Receipt?");
+                        System.out.print("[Yes/No]: ");
+                        String UserRequestReceipt = scan.nextLine();
+                        if(UserRequestReceipt.equalsIgnoreCase("yes")) {
+                            cli.LabelInformation("Processing Receipt.");
+                            Receipt.generate(AfterBalance, CurrentBalance - AfterBalance, 0, "Bills", CurrentCard);
+                        } else {
+                            cli.LabelInformation("Declined Receipt.");
+                        }
                     } else if(InformationCorrectChoice.equalsIgnoreCase("no")) {
                         // Rerun the application
                         ++RetriedProgram;
@@ -131,7 +143,20 @@ public class Home {
                 if(UserInputVendor.isEmpty()) {
                     UserInputVendor = null;
                 }
+                double CurrentBalance = CurrentCard.getCardAmount();
                 MakePaymentAction(CurrentCard, UserInputVendor);
+                double AfterBalance = CurrentCard.getCardAmount();
+                cli.LabelInformation("You paid %.2f for the transactions.", AfterBalance);
+                System.out.println("Do you request a Receipt?");
+                System.out.print("[Yes/No]: ");
+                String UserRequestReceipt = scan.nextLine();
+                if(UserRequestReceipt.equalsIgnoreCase("yes")) {
+                    cli.LabelInformation("Processing Receipt.");
+                    Receipt.generate(AfterBalance, CurrentBalance - AfterBalance, 0, "Bills", CurrentCard);
+                } else {
+                    cli.LabelInformation("Declined Receipt.");
+                }
+
             } else if(InformationCorrectChoice.equalsIgnoreCase("no")) {
                 // Rerun the application
                 ++RetriedProgram;
@@ -189,7 +214,20 @@ public class Home {
                 if(UserInputVendor.isEmpty()) {
                     UserInputVendor = null;
                 }
+                double CurrentBalance = CurrentCard.getCardAmount();
                 MakePaymentAction(CurrentCard, UserInputVendor);
+                double AfterBalance = CurrentCard.getCardAmount();
+
+                cli.LabelInformation("You paid %.2f for the transactions.", AfterBalance);
+                System.out.println("Do you request a Receipt?");
+                System.out.print("[Yes/No]: ");
+                String UserRequestReceipt = scan.nextLine(); // Ask if user wants receipt
+                if(UserRequestReceipt.equalsIgnoreCase("yes")) {
+                    cli.LabelInformation("Processing Receipt.");
+                    Receipt.generate(AfterBalance, CurrentBalance - AfterBalance, 0, "Bills", CurrentCard);
+                } else {
+                    cli.LabelInformation("Declined Recipt.");
+                }
             } else if(InformationCorrectChoice.equalsIgnoreCase("no")) {
                 // Rerun the application
                 MakePaymentCommand(scan);
@@ -201,7 +239,7 @@ public class Home {
     }
 
     private static void MakePaymentAction(debit Card, String Vendor){
-
+        double TotalOwed = 0;
         int InvoiceNumber = (int) Math.round(Math.random() * 9999) + 1000;
         String FormattedDescription = String.format("Invoice %d paid", InvoiceNumber);
 
