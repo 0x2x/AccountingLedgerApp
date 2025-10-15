@@ -1,6 +1,7 @@
 package org.nigel.screens.designs;
 
 import org.nigel.models.debit;
+import org.nigel.utils.cli;
 
 public class Receipt {
     public static void generate(double subtotal, double total, double tax, String CompanyName, debit card) {
@@ -12,7 +13,7 @@ public class Receipt {
     private static void printReceipt(String Date, String Time, double subtotal, double tax, double total, String CompanyName, debit Card) {
         // You would replace this with dynamic data
         String CompanyWebsite = String.format("%s.com", CompanyName);
-        System.out.println("========================================");
+        System.out.println(cli.ANSI_WHITE_BACKGROUND + cli.ANSI_BLACK +"========================================");
         System.out.printf("           **%s**\n", CompanyName);
         System.out.println("         123 Main St, Anytown, USA");
         System.out.printf("          (555) 123-4567 | %s%n", CompanyWebsite);
@@ -42,6 +43,6 @@ public class Receipt {
         System.out.println("----------------------------------------");
         System.out.println("           **THANK YOU FOR YOUR BUSINESS!**");
         System.out.println("             Please visit us again soon!");
-        System.out.println("========================================");
+        System.out.println("========================================" + cli.ANSI_RESET);
     }
 }

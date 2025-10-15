@@ -92,15 +92,14 @@ public class Home {
                         }
 
                         double CurrentBalance = CurrentCard.getCardAmount();
-                        MakePaymentAction(CurrentCard, UserInputVendor);
-                        double AfterBalance = CurrentCard.getCardAmount();
-                        cli.LabelInformation("You paid %.2f for the transactions.", AfterBalance);
+                        double Owed = MakePaymentAction(CurrentCard, UserInputVendor);
+                        cli.LabelInformation("You paid %.2f for the transactions.", Owed);
                         System.out.println("Do you request a Receipt?");
                         System.out.print("[Yes/No]: ");
                         String UserRequestReceipt = scan.nextLine();
                         if(UserRequestReceipt.equalsIgnoreCase("yes")) {
                             cli.LabelInformation("Processing Receipt.");
-                            Receipt.generate(AfterBalance, CurrentBalance - AfterBalance, 0, "Bills", CurrentCard);
+                            Receipt.generate(Owed, CurrentBalance - Owed, 0, "Bills", CurrentCard);
                         } else {
                             cli.LabelInformation("Declined Receipt.");
                         }
@@ -143,16 +142,18 @@ public class Home {
                 if(UserInputVendor.isEmpty()) {
                     UserInputVendor = null;
                 }
+
                 double CurrentBalance = CurrentCard.getCardAmount();
-                MakePaymentAction(CurrentCard, UserInputVendor);
-                double AfterBalance = CurrentCard.getCardAmount();
-                cli.LabelInformation("You paid %.2f for the transactions.", AfterBalance);
+
+                double Owed = MakePaymentAction(CurrentCard, UserInputVendor);
+
+                cli.LabelInformation("You paid %.2f for the transactions.", Owed);
                 System.out.println("Do you request a Receipt?");
                 System.out.print("[Yes/No]: ");
                 String UserRequestReceipt = scan.nextLine();
                 if(UserRequestReceipt.equalsIgnoreCase("yes")) {
                     cli.LabelInformation("Processing Receipt.");
-                    Receipt.generate(AfterBalance, CurrentBalance - AfterBalance, 0, "Bills", CurrentCard);
+                    Receipt.generate(Owed, CurrentBalance - Owed, 0, "Bills", CurrentCard);
                 } else {
                     cli.LabelInformation("Declined Receipt.");
                 }
@@ -215,16 +216,15 @@ public class Home {
                     UserInputVendor = null;
                 }
                 double CurrentBalance = CurrentCard.getCardAmount();
-                MakePaymentAction(CurrentCard, UserInputVendor);
-                double AfterBalance = CurrentCard.getCardAmount();
+                double Owed = MakePaymentAction(CurrentCard, UserInputVendor);
 
-                cli.LabelInformation("You paid %.2f for the transactions.", AfterBalance);
+                cli.LabelInformation("You paid %.2f for the transactions.", Owed);
                 System.out.println("Do you request a Receipt?");
                 System.out.print("[Yes/No]: ");
                 String UserRequestReceipt = scan.nextLine(); // Ask if user wants receipt
                 if(UserRequestReceipt.equalsIgnoreCase("yes")) {
                     cli.LabelInformation("Processing Receipt.");
-                    Receipt.generate(AfterBalance, CurrentBalance - AfterBalance, 0, "Bills", CurrentCard);
+                    Receipt.generate(Owed, CurrentBalance - Owed, 0, "Bills", CurrentCard);
                 } else {
                     cli.LabelInformation("Declined Recipt.");
                 }
@@ -238,7 +238,7 @@ public class Home {
         }
     }
 
-    private static void MakePaymentAction(debit Card, String Vendor){
+    private static double MakePaymentAction(debit Card, String Vendor){
         double TotalOwed = 0;
         int InvoiceNumber = (int) Math.round(Math.random() * 9999) + 1000;
         String FormattedDescription = String.format("Invoice %d paid", InvoiceNumber);
@@ -246,7 +246,9 @@ public class Home {
         if (Vendor == null) { // if vendor is null; Pay all bills that doesn't end with paid
             for (int i = 0; i < App.TransactionsArray.size(); i++) {
                 if(!App.TransactionsArray.get(i).getDescription().endsWith("paid") && !App.TransactionsArray.get(i).getDescription().startsWith("Invoice")) { // checks to make sure it's not a invoice
-                    Card.setCardAmount(Card.getCardAmount() - App.TransactionsArray.get(i).getAmount()); // set the new amount
+                    double NewAmount = Card.getCardAmount() - App.TransactionsArray.get(i).getAmount();
+                    TotalOwed += App.TransactionsArray.get(i).getAmount();
+                    Card.setCardAmount(NewAmount); // set the new amount
                     App.TransactionsArray.get(i).setDescription(FormattedDescription);
                 }
             }
@@ -254,7 +256,9 @@ public class Home {
             for (int i = 0; i < App.TransactionsArray.size(); i++) { // if vendor is not null; pay bills that doesn't end with paid.
                 if(App.TransactionsArray.get(i).getVendor().equalsIgnoreCase(Vendor)){
                     if(!App.TransactionsArray.get(i).getDescription().endsWith("paid") && !App.TransactionsArray.get(i).getDescription().startsWith("Invoice")) { // checks to make sure it's not a invoice
-                        Card.setCardAmount(Card.getCardAmount() - App.TransactionsArray.get(i).getAmount()); // set the new amount
+                        double NewAmount = Card.getCardAmount() - App.TransactionsArray.get(i).getAmount();
+                        TotalOwed += App.TransactionsArray.get(i).getAmount();
+                        Card.setCardAmount(NewAmount); // set the new amount
                         App.TransactionsArray.get(i).setDescription(FormattedDescription);
                     }
                 }
@@ -266,5 +270,6 @@ public class Home {
             NewContent.append(App.TransactionsArray.get(i).toFormat()).append("\n");
         }
         files.WriteWholeFile("files/transactions.csv", NewContent.toString()); // rewrite whole file
+        return TotalOwed;
     }
 }
