@@ -11,13 +11,6 @@ import java.util.Calendar;
 import java.util.Scanner;
 
 public class Ledger {
-    static void main() {
-        Initalizing.LoadTransactions();
-//        DisplayAll();
-//        DisplayDeposits();
-//        DisplayPayments();
-        DisplayMonthToDate();
-    }
     public static void DisplayReports(Scanner scan){
         /*
         1) Month To Date
@@ -30,7 +23,6 @@ public class Ledger {
         * 6 - custom search
          */
         LedgerDesign.ReportsDesignMenu();
-
         boolean KeepPageOpen = true;
         while (KeepPageOpen) {
             System.out.print("[Ledger/Reports] User: ");
@@ -70,6 +62,7 @@ public class Ledger {
             }
         }
     }
+
     public static void CustomSearch(Scanner scan) {
         /*6
         ) Custom Search - prompt the user for the following search values.
@@ -130,7 +123,6 @@ public class Ledger {
             }
         }
     }
-
     public static void DisplayCustomSearchStartDate(String UserInputDate) {
         String[] DateSplit = UserInputDate.split("-");
         String Year = DateSplit[0];
@@ -190,7 +182,6 @@ public class Ledger {
             }
         }
     }
-
     public static void DisplayAll(){
         System.out.println("\t\t============Display All==================");
         System.out.println("\tVendor, Description, Date, Time, Amount");
@@ -237,7 +228,7 @@ public class Ledger {
         }
     }
     public static void DisplayPreviousMonth() {
-        String getToday = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
+        String getToday = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime()); // 2025-10-15
         String[] ParseTodayDate = getToday.split("-");
         String CurrentYear = ParseTodayDate[0];
         String CurrentMonth = ParseTodayDate[1];
@@ -248,7 +239,7 @@ public class Ledger {
             CurrentYear = String.valueOf(Integer.parseInt(CurrentYear) - 1);
         }
         String PreviousMonthFormatted = String.format("%20d", PreviousMonthNumber);
-        String LastMonth = CurrentYear + "-" + PreviousMonthFormatted;
+        String LastMonth = CurrentYear + "-" + PreviousMonthFormatted; // 2025-09
 
         String FormatCurrent = String.format("%s-%s", CurrentYear, LastMonth);
         System.out.println("\t============Display Previous-Month==================");

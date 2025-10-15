@@ -15,18 +15,6 @@ import java.util.Scanner;
 public class Home {
     private static int RetriedProgram = 0;
 
-    static void main() {
-        Initalizing.LoadTransactions(); // practice
-        Initalizing.LoadDebitCards();
-
-        debit Card = new debit();
-        Card.setCardNumber("42424242");
-        Card.setCardAmount(42400);
-
-        Scanner scan = new Scanner(System.in);
-        MakePaymentCommand(scan);
-    }
-
     public static void AddDeposit(){
         Scanner scan = new Scanner(System.in);
         transaction Transaction = new transaction();
@@ -107,7 +95,6 @@ public class Home {
                         } else {
                             cli.LabelInformation("You have no bill.");
                         }
-
                     } else if(InformationCorrectChoice.equalsIgnoreCase("no")) {
                         // Rerun the application
                         ++RetriedProgram;
