@@ -1,0 +1,61 @@
+package org.nigel;
+
+import org.nigel.models.debit;
+import org.nigel.models.transaction;
+import org.nigel.screens.Home;
+import org.nigel.screens.designs.HomeDesign;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+import static org.nigel.Services.Initalizing.LoadDebitCards;
+import static org.nigel.Services.Initalizing.LoadTransactions;
+
+public class App {
+    public static ArrayList<transaction> TransactionsArray = new ArrayList<>();
+    public static ArrayList<transaction> DepositsArray = new ArrayList<>();
+    public static ArrayList<debit> DebitCardArrays = new ArrayList<>();
+
+    private static final Scanner scan = new Scanner(System.in);
+    private static boolean AlreadyInit = false;
+    
+    private static final String App_Version = "1.0";
+    private static final String App_Name = "The Ledger";
+    private static final String App_URL = "https://github.com/0x2x/AccountingLedgerApp";
+    private static final String App_Creator = "Nigel";
+
+    private static void Init() {
+        if (AlreadyInit == false) {
+            LoadTransactions(); // Load Transactions into TransactionsArray
+            LoadDebitCards();
+        }
+        AlreadyInit = true;
+    }
+
+    public static void Menu(){
+        Init();
+        HomeDesign.HomeLoadMenu(); // Print the Main home screen
+        boolean KeepProgramOpen = true; // Exit application if false.
+        while(KeepProgramOpen) {
+            System.out.print("User: ");
+            String Argument = scan.nextLine();
+            String ArgumentCorrection = Argument.split(" ")[0].toLowerCase();// Split the text in to a array, Grab first element and change to lowercase
+            switch (ArgumentCorrection) { // Switch though each option till find a valid one.
+                case "d":
+                    Home.AddDeposit();
+                    break;
+                case "p":
+                    Home.MakePaymentCommand(scan);
+                    break;
+                case "l":
+                    break;
+                case "h":
+                    HomeDesign.HomeLoadMenu();
+                    break;
+                case "x":
+                    KeepProgramOpen = false;
+                    break;
+            }
+        }
+    }
+}
