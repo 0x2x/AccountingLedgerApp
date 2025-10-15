@@ -93,16 +93,21 @@ public class Home {
 
                         double CurrentBalance = CurrentCard.getCardAmount();
                         double Owed = MakePaymentAction(CurrentCard, UserInputVendor);
-                        cli.LabelInformation("You paid %.2f for the transactions.", Owed);
-                        System.out.println("Do you request a Receipt?");
-                        System.out.print("[Yes/No]: ");
-                        String UserRequestReceipt = scan.nextLine();
-                        if(UserRequestReceipt.equalsIgnoreCase("yes")) {
-                            cli.LabelInformation("Processing Receipt.");
-                            Receipt.generate(Owed, CurrentBalance - Owed, 0, "Bills", CurrentCard);
+                        if(Owed != 0) {
+                            cli.LabelInformation("You paid %.2f for the transactions.", Owed);
+                            System.out.println("Do you request a Receipt?");
+                            System.out.print("[Yes/No]: ");
+                            String UserRequestReceipt = scan.nextLine(); // Ask if user wants receipt
+                            if(UserRequestReceipt.equalsIgnoreCase("yes")) {
+                                cli.LabelInformation("Processing Receipt.");
+                                Receipt.generate(Owed, CurrentBalance - Owed, 0, "Bills", CurrentCard);
+                            } else {
+                                cli.LabelInformation("Declined Recipt.");
+                            }
                         } else {
-                            cli.LabelInformation("Declined Receipt.");
+                            cli.LabelInformation("You have no bill.");
                         }
+
                     } else if(InformationCorrectChoice.equalsIgnoreCase("no")) {
                         // Rerun the application
                         ++RetriedProgram;
@@ -146,18 +151,20 @@ public class Home {
                 double CurrentBalance = CurrentCard.getCardAmount();
 
                 double Owed = MakePaymentAction(CurrentCard, UserInputVendor);
-
-                cli.LabelInformation("You paid %.2f for the transactions.", Owed);
-                System.out.println("Do you request a Receipt?");
-                System.out.print("[Yes/No]: ");
-                String UserRequestReceipt = scan.nextLine();
-                if(UserRequestReceipt.equalsIgnoreCase("yes")) {
-                    cli.LabelInformation("Processing Receipt.");
-                    Receipt.generate(Owed, CurrentBalance - Owed, 0, "Bills", CurrentCard);
+                if(Owed != 0) {
+                    cli.LabelInformation("You paid %.2f for the transactions.", Owed);
+                    System.out.println("Do you request a Receipt?");
+                    System.out.print("[Yes/No]: ");
+                    String UserRequestReceipt = scan.nextLine(); // Ask if user wants receipt
+                    if(UserRequestReceipt.equalsIgnoreCase("yes")) {
+                        cli.LabelInformation("Processing Receipt.");
+                        Receipt.generate(Owed, CurrentBalance - Owed, 0, "Bills", CurrentCard);
+                    } else {
+                        cli.LabelInformation("Declined Recipt.");
+                    }
                 } else {
-                    cli.LabelInformation("Declined Receipt.");
+                    cli.LabelInformation("You have no bill.");
                 }
-
             } else if(InformationCorrectChoice.equalsIgnoreCase("no")) {
                 // Rerun the application
                 ++RetriedProgram;
@@ -217,17 +224,22 @@ public class Home {
                 }
                 double CurrentBalance = CurrentCard.getCardAmount();
                 double Owed = MakePaymentAction(CurrentCard, UserInputVendor);
-
-                cli.LabelInformation("You paid %.2f for the transactions.", Owed);
-                System.out.println("Do you request a Receipt?");
-                System.out.print("[Yes/No]: ");
-                String UserRequestReceipt = scan.nextLine(); // Ask if user wants receipt
-                if(UserRequestReceipt.equalsIgnoreCase("yes")) {
-                    cli.LabelInformation("Processing Receipt.");
-                    Receipt.generate(Owed, CurrentBalance - Owed, 0, "Bills", CurrentCard);
+                if(Owed != 0) {
+                    cli.LabelInformation("You paid %.2f for the transactions.", Owed);
+                    System.out.println("Do you request a Receipt?");
+                    System.out.print("[Yes/No]: ");
+                    String UserRequestReceipt = scan.nextLine(); // Ask if user wants receipt
+                    if(UserRequestReceipt.equalsIgnoreCase("yes")) {
+                        cli.LabelInformation("Processing Receipt.");
+                        Receipt.generate(Owed, CurrentBalance - Owed, 0, "Bills", CurrentCard);
+                    } else {
+                        cli.LabelInformation("Declined Recipt.");
+                    }
                 } else {
-                    cli.LabelInformation("Declined Recipt.");
+                    cli.LabelInformation("You have no bill.");
                 }
+
+
             } else if(InformationCorrectChoice.equalsIgnoreCase("no")) {
                 // Rerun the application
                 MakePaymentCommand(scan);
