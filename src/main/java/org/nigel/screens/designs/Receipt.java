@@ -37,7 +37,7 @@ public class Receipt {
 
         // Use String.format or printf for right-alignment of currency
         System.out.printf("                       Subtotal: $%.2f%n", subtotal);
-        System.out.printf("                            Tax: $ %.2f%n", tax);
+        System.out.printf("                            Tax: $ %.2f%n", 0.0);
         System.out.printf("                       **TOTAL:** **$%.2f**%n", total);
 
         System.out.println("----------------------------------------");

@@ -89,7 +89,7 @@ public class Home {
                             String UserRequestReceipt = scan.nextLine(); // Ask if user wants receipt
                             if(UserRequestReceipt.equalsIgnoreCase("yes")) {
                                 cli.LabelInformation("Processing Receipt.");
-                                Receipt.generate(Owed, CurrentBalance - Owed, 0, "Bills", CurrentCard);
+                                Receipt.generate(Owed, Owed, 0, "Ledger Application", CurrentCard);
                             } else {
                                 cli.LabelInformation("Declined Recipt.");
                             }
@@ -146,7 +146,8 @@ public class Home {
                     String UserRequestReceipt = scan.nextLine(); // Ask if user wants receipt
                     if(UserRequestReceipt.equalsIgnoreCase("yes")) {
                         cli.LabelInformation("Processing Receipt.");
-                        Receipt.generate(Owed, CurrentBalance - Owed, 0, "Bills", CurrentCard);
+                        Receipt.generate(Owed, Owed, 0, "Ledger Application", CurrentCard);
+
                     } else {
                         cli.LabelInformation("Declined Recipt.");
                     }
@@ -219,15 +220,14 @@ public class Home {
                     String UserRequestReceipt = scan.nextLine(); // Ask if user wants receipt
                     if(UserRequestReceipt.equalsIgnoreCase("yes")) {
                         cli.LabelInformation("Processing Receipt.");
-                        Receipt.generate(Owed, CurrentBalance - Owed, 0, "Bills", CurrentCard);
+                        Receipt.generate(Owed, Owed, 0, "Ledger Application", CurrentCard);
+
                     } else {
                         cli.LabelInformation("Declined Recipt.");
                     }
                 } else {
                     cli.LabelInformation("You have no bill.");
                 }
-
-
             } else if(InformationCorrectChoice.equalsIgnoreCase("no")) {
                 // Rerun the application
                 MakePaymentCommand(scan);
