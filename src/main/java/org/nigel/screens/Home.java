@@ -11,6 +11,7 @@ import org.nigel.utils.cli;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Scanner;
+import java.util.TreeMap;
 
 public class Home {
     private static int RetriedProgram = 0;
@@ -241,7 +242,6 @@ public class Home {
         double TotalOwed = 0;
         int InvoiceNumber = (int) Math.round(Math.random() * 9999) + 1000;
         String FormattedDescription = String.format("Invoice %d paid", InvoiceNumber);
-
         if (Vendor == null) { // if vendor is null; Pay all bills that doesn't end with paid
             for (int i = 0; i < App.TransactionsArray.size(); i++) {
                 if(!App.TransactionsArray.get(i).getDescription().endsWith("paid") && !App.TransactionsArray.get(i).getDescription().startsWith("Invoice")) { // checks to make sure it's not a invoice
@@ -263,12 +263,16 @@ public class Home {
                 }
             }
         }
-
         StringBuilder NewContent = new StringBuilder();
         for (int i = 0; i < App.TransactionsArray.size(); i++) {
             NewContent.append(App.TransactionsArray.get(i).toFormat()).append("\n");
         }
+        StringBuilder NewDebitCardInfo = new StringBuilder();
+        for (int i = 0; i < App.DebitCardArrays.size(); i++) {
+            NewDebitCardInfo.append(App.DebitCardArrays.get(i).toFormat()).append("\n");
+        }
         files.WriteWholeFile("files/transactions.csv", NewContent.toString()); // rewrite whole file
+        files.WriteWholeFile("files/debits.csv", NewDebitCardInfo.toString()); // rewrite whole file
         return TotalOwed;
     }
 }
