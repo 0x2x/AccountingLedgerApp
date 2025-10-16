@@ -43,6 +43,7 @@ public class Home {
 
     public static void MakePaymentCommand(Scanner scan) {
         if(App.DebitCardArrays.size() > 1 && RetriedProgram == 0) {
+
             // select a new debit card
             System.out.println("===Select Debit Cards by Index Number===");
             int index = 0;
@@ -89,7 +90,8 @@ public class Home {
                             String UserRequestReceipt = scan.nextLine(); // Ask if user wants receipt
                             if(UserRequestReceipt.equalsIgnoreCase("yes")) {
                                 cli.LabelInformation("Processing Receipt.");
-                                Receipt.generate(Owed, Owed, 0, "Ledger Application", CurrentCard);
+                                Receipt.generate(Owed, Owed, Owed, "Ledger Application", CurrentCard);
+
                             } else {
                                 cli.LabelInformation("Declined Recipt.");
                             }
@@ -163,6 +165,7 @@ public class Home {
                 MakePaymentCommand(scan);
             }
         } else {
+            RetriedProgram = 0;
             // add new debit card
             System.out.print("What is your name: ");
             String UserInputName = scan.nextLine();

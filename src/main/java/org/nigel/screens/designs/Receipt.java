@@ -29,20 +29,16 @@ public class Receipt {
         System.out.println("----------------------------------------");
         System.out.println("QTY | ITEM                 | PRICE | TOTAL");
         System.out.println("----------------------------------------");
-
-        // Example Item lines - alignment is key for CLI!
-        System.out.printf(" %-2d | %-20s | $%-4.2f| $%-4.2f%n", 1, CompanyName + " Bill", total, total);
+        System.out.printf(" %-2d | %-20s | $%-4.2f| $%-4.2f%n", 1, CompanyName + " Bill", subtotal, subtotal);
 
         System.out.println("----------------------------------------");
-
-        // Use String.format or printf for right-alignment of currency
         System.out.printf("                       Subtotal: $%.2f%n", subtotal);
         System.out.printf("                            Tax: $ %.2f%n", 0.0);
-        System.out.printf("                       **TOTAL:** **$%.2f**%n", total);
+        System.out.printf("                       **TOTAL:** **$%.2f**%n", subtotal);
 
         System.out.println("----------------------------------------");
         System.out.printf("Payment Method: VISA **** %s\n", Card.getCardNumber());
-        System.out.printf("Amount Paid: $%.2f\n", total);
+        System.out.printf("Amount Paid: $%.2f\n", subtotal);
         System.out.println("Change Due: $ 0.00");
         System.out.println("----------------------------------------");
         System.out.println("           **THANK YOU FOR YOUR BUSINESS!**");
