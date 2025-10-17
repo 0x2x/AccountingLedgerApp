@@ -19,7 +19,7 @@ Welcome to the **Ledger Application**, a specialized tool designed to help you m
         F --> G[Specific Screens: UI/View Layer];
         G --> H[Specific Services: Execute Business Logic];
         H --> I{Persistence Check: Update Array & Write to CSV?};
-        I --> B;
+        I --> E;
     end
 
     %% Catppuccin Mocha Palette adapted for a light background for high readability
