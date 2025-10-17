@@ -37,7 +37,7 @@ public class Receipt {
         System.out.printf("                       **TOTAL:** **$%.2f**%n", subtotal);
 
         System.out.println("----------------------------------------");
-        System.out.printf("Payment Method: VISA **** %s\n", Card.getCardNumber());
+        System.out.printf("Payment Method: VISA **** %s\n", Card.getCardNumber().substring(Card.getCardNumber().length() - 4));
         System.out.printf("Amount Paid: $%.2f\n", subtotal);
         System.out.println("Change Due: $ 0.00");
         System.out.println("----------------------------------------");
