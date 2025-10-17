@@ -67,6 +67,9 @@ public class Home {
                     System.out.println("\tCard Holder Name: " + CurrentCard.getCardHolderFullName() + " | " + "\tAmount: " + CurrentCard.getCardAmount());
                     System.out.println("\tCard Holder Address: " + CurrentCard.getHomeAddress() + " | " + "\tExpiration: " + CurrentCard.getCardExpiration());
                     System.out.println();
+                    if(CurrentCard.getCardAmount() < 0) {
+                        cli.LabelWarning("Your currently in debt, by using this card you're gonna go more in debt.");
+                    }
                     System.out.println("Is this information Correct?");
                     System.out.print("[Yes/No]: ");
                     String InformationCorrectChoice = scan.nextLine();
@@ -124,6 +127,9 @@ public class Home {
             System.out.println("\tCard Holder Name: " + CurrentCard.getCardHolderFullName() + " | " + "\tAmount: " + CurrentCard.getCardAmount());
             System.out.println("\tCard Holder Address: " + CurrentCard.getHomeAddress() + " | " + "\tExpiration: " + CurrentCard.getCardExpiration());
             System.out.println();
+            if(CurrentCard.getCardAmount() < 0) {
+                cli.LabelWarning("Your currently in debt, by using this card you're gonna go more in debt.");
+            }
             System.out.println("Is this information Correct?");
             System.out.print("[Yes/No]: ");
             String InformationCorrectChoice = scan.nextLine();
@@ -188,6 +194,7 @@ public class Home {
             System.out.println("\tCard Holder Name: " +UserInputName + " | " + "\tAmount: " + UserInputCardAmount);
             System.out.println("\tCard Holder Address: " + UserInputHomeAddress + " | " + "\tExpiration: " + UserInputCardExpiration);
             System.out.println();
+
             System.out.println("Is this information Correct?");
             System.out.print("[Yes/No]: ");
             String InformationCorrectChoice = scan.nextLine();

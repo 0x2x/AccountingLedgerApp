@@ -246,7 +246,7 @@ public class Ledger {
         System.out.println("\tVendor, Description, Date, Time, Amount");
         System.out.println("\t------------------------------------------------------------");
         for (int i = 0; i < App.TransactionsArray.size(); i++) {
-            if(App.TransactionsArray.get(i).getDate().startsWith(FormatCurrent)) {
+            if(App.TransactionsArray.get(i).getDate().startsWith(FormatCurrent)) { // 2025-09
                 System.out.printf("\t%s | %s | %s | %s | %s %n", App.TransactionsArray.get(i).getVendor(), App.TransactionsArray.get(i).getDescription(), App.TransactionsArray.get(i).getDate(), App.TransactionsArray.get(i).getTime(), App.TransactionsArray.get(i).getAmount());
             }
         }
