@@ -1,3 +1,7 @@
+# Update
+New branch: https://github.com/0x2x/AccountingLedgerApp/tree/recode
+
+
 # Ledger Application
 Welcome to the **Ledger Application**, a specialized tool designed to help you manage and display your financial data simply and effectively.
 
